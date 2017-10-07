@@ -26,3 +26,14 @@ it(`matcher returns matcher name, expected and actual values`, () => {
     }),
   );
 });
+
+it('error stack straces points to the right function', () => {
+  expect.addSnapshotSerializer({
+    print: val => '',
+    test: val => {
+      throw new Error('Where is this error?');
+    },
+  });
+
+  expect('foo').toMatchSnapshot();
+});
